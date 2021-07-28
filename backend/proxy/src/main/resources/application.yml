@@ -1,0 +1,52 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 43200
+ribbon:
+  ReadTimeout: 60000
+  SocketTimeout: 60000
+sensitiveHeaders: Authorization, Set-Cookie
+spring:
+  application:
+    name: proxy-service
+  datasource:
+    url: jdbc:mysql://${SPRING_MYSQL_DB_HOST}:${SPRING_MYSQL_HOST_PORT}/auth_cinema?useSSL=false&allowPublicKeyRetrieval=true
+    password: ${SPRING_MYSQL_DB_PASSWORD}
+    username: ${SPRING_MYSQL_DB_USERNAME}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: update
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  session:
+    store-type: redis
+  redis:
+    host: ${SPRING_REDIS_DB_HOST}
+    database: 0
+    password: ${SPRING_REDIS_DB_PASSWORD}
+    timeout: 10000
+    port: ${SPRING_REDIS_HOST_PORT}
+  cloud:
+    kubernetes:
+      enabled: true
+      discovery:
+        all-namespaces: true
+dekorate:
+  kubernetes:
+    serviceType: "NodePort"
+zuul:
+  routes:
+    cinema-service:
+      path: /cinema-service/**
+      serviceId: cinema-service
+    movies-service:
+      path: /movies-service/**
+      serviceId: movies-service
+    qrcode-service:
+      path: /qrcode-service/**
+      serviceId: qrcode-service

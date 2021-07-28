@@ -1,0 +1,43 @@
+#wrapper {
+    height: 100%;
+    min-height: 60vh;
+}
+
+.card-cine {
+    width: 100%;
+}
+
+.card-img {
+    width: 150px;
+}
+
+.t-nav {
+    margin-bottom: 15px;
+    margin-top: 8px;
+}
+
+.card-session {
+    width: 600px;
+    height: 300px;
+    margin-bottom: 15px;
+}
+
+.card-session:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 1rem;
+  }
+  
+  .half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+  }
+  .text-warning {
+    color: #4f744a !important;
+  }

@@ -1,0 +1,153 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+
+    <nav class="navbar navbar-light bg-light">
+        <div>
+          <span><b>CINEMAS SETTINGS (
+            <span class="badge badge-success">ADD</span> / 
+            <span class="badge badge-warning">EDIT</span> / 
+            <span class="badge badge-danger">DELETE</span>)</b>
+          </span>
+        </div>
+        <div class="right-side d-flex">
+            <ul class="navbar-nav">
+                
+                <form class="form-inline my-2 my-lg-0">
+                    <i class="fas fa-plus-square plus" (click)="openCreateModal(content1)"></i>
+                    <ng-template #content1 let-c="close" let-d="dismiss">
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="modal-basic-title">Create new cinema</h4>
+                          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="form-group">
+                              <label for="name">Name</label>
+                              <input type="text" class="form-control" [(ngModel)]="cinema.name" name="name"
+                                id="name" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="desc">Description</label>
+                              <input type="text" class="form-control" [(ngModel)]="cinema.description" name="description"
+                                id="desc" placeholder="Description">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleFormControlSelect1">City</label>
+                              <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+                                <select class="form-control" id="city" name="city" 
+                                  [(ngModel)]="selectedCity" *ngIf="cityExist == true">
+                                  <option value="0">Select-a-city</option>
+                                  <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
+                                </select>
+                                <input type="text" class="form-control" name="city_name" *ngIf="cityExist == false" 
+                                  id="city_name" placeholder="City name" [(ngModel)]="newCity.name">
+                                <i class="far fa-plus-square plus_city" *ngIf="cityExist == true"
+                                  (click)="cityExist=false"></i>
+                                <i class="far fa-minus-square plus_city" *ngIf="cityExist == false"
+                                  (click)="cityExist=true"></i>
+                              </div>
+                            </div>
+                            <div class="form-group" id="auto-complete">
+                                    <mat-google-maps-autocomplete 
+                                      (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                                      (onLocationSelected)="onLocationSelected($event)">
+                                    </mat-google-maps-autocomplete>
+                          </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-primary" (click)="createCinema()">Create</button>
+                        </div>
+                    </ng-template>
+                </form>
+            </ul>
+        </div>
+    </nav>
+
+    <div fxLayout="row wrap" fxLayoutAlign="space-around stretch" fxLayoutGap="15px" class="cinemas_list">
+
+        <ng-container *ngFor="let cinema of cinemas">
+    
+            <mat-card class="card">
+                <mat-card-header [routerLink]="'/cinema/' + cinema.id + '/settings'">
+                  <mat-card-title >{{cinema.name}}</mat-card-title>
+                  <mat-card-subtitle>{{cinema.city.name}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content fxLayout="column" fxLayoutAlign="start center" 
+                          [routerLink]="'/cinema/' + cinema.id + '/settings'">
+                  <img src="../../../assets/cinema.png" class="cine_img" alt="cinema">
+                </mat-card-content>
+                <mat-card-actions>
+                    <div fxLayout="row" fxLayoutAlign="end stretch" >
+                        <i class="fas fa-trash-alt delete" (click)="openDeleteModal(content)"></i>
+                        <ng-template #content let-c="close" let-d="dismiss">
+                            <div class="modal-header">
+                              <h4 class="modal-title" id="modal-basic-title">Are you sure you want to delete it !</h4>
+                              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-danger" (click)="deleteCinema(cinema.id)">Confirm delete</button>
+                            </div>
+                          </ng-template>
+                          
+                        <i class="fas fa-edit edit" (click)="openUpdateModal(content2, cinema)"></i>
+                        <ng-template #content2 let-c="close" let-d="dismiss">
+                          <div class="modal-header">
+                            <h4 class="modal-title" id="modal-basic-title">Update cinema</h4>
+                            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" [(ngModel)]="cinema.name" name="name"
+                                  id="name" placeholder="Name">
+                              </div>
+                              <div class="form-group">
+                                <label for="desc">Description</label>
+                                <input type="text" class="form-control" [(ngModel)]="cinema.description" name="description"
+                                  id="desc" placeholder="Description">
+                              </div>
+                              <div class="form-group">
+                                <label for="city">City</label>
+                                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+                                  <select class="form-control" id="city" name="city" 
+                                    [(ngModel)]="selectedCity" *ngIf="cityExist == true">
+                                    <option value="0">Select-a-city</option>
+                                    <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
+                                  </select>
+                                  <input type="text" class="form-control" name="city_name" *ngIf="cityExist == false" 
+                                    id="city_name" placeholder="City name" [(ngModel)]="newCity.name">
+                                  <i class="far fa-plus-square plus_city" *ngIf="cityExist == true"
+                                    (click)="cityExist=false"></i>
+                                  <i class="far fa-minus-square plus_city" *ngIf="cityExist == false"
+                                    (click)="cityExist=true"></i>
+                                </div>
+                              </div>
+                              <div class="form-group" id="auto-complete">
+                                <mat-google-maps-autocomplete [address]="cinema.address"
+                                  (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                                  (onLocationSelected)="onLocationSelected($event)">
+                                </mat-google-maps-autocomplete>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-primary" (click)="updateCinema()">Update</button>
+                          </div>
+                      </ng-template>
+                    </div>
+                </mat-card-actions>
+            </mat-card>
+    
+        </ng-container>
+    
+    </div>
+
+</div>
+

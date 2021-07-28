@@ -1,0 +1,70 @@
+.card {
+    width: 330px;
+    height: 370px;
+    margin-bottom: 15px;
+}
+
+.card:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.delete, .edit {
+    font-size: 1.5em;
+    color: rgb(92, 87, 87);
+    margin: 5px;
+}
+
+.delete:hover {
+    color: rgb(201, 35, 35);
+    cursor: pointer;
+}
+
+.edit:hover {
+    color: rgb(224, 151, 54);
+    cursor: pointer;
+}
+
+.plus {
+    font-size: 2.5em;
+    color: rgb(90, 199, 81);
+}
+
+.search {
+    font-size: 2.5em;
+    color: rgb(91, 135, 194);
+}
+
+.search:hover {
+    color: rgb(46, 87, 141);
+    cursor: pointer;
+}
+
+.plus:hover {
+    color: rgb(54, 146, 46);
+    cursor: pointer;
+}
+
+.plus_city {
+    font-size: 2em;
+    color: rgb(77, 112, 74);
+}
+
+.plus_city:hover {
+    color: rgb(62, 68, 62);
+    cursor: pointer;
+}
+
+::ng-deep .modal { z-index: 1001 !important;} 
+
+::ng-deep .modal-backdrop {z-index: 1000 !important;}
+
+::ng-deep .pac-container {z-index: 1055 !important;}
+
+.cinemas_list {
+    min-height: 65vh;
+}
+
+.cine_img {
+    width: 200px;
+}

@@ -1,0 +1,46 @@
+<nav class="navbar shadow navbar-light bg-light fixed-top navbar-expand-sm mt-3" id="my-nav">
+    <a class="navbar-brand logo_m" routerLink="/home">
+      <img src="../../../assets/small.png" width="150" alt="logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-8" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between" id="navbar-list-8">
+      <ul class="navbar-nav">
+        <!-- <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+        </li> -->
+        <li class="nav-item" *ngIf="appStore.status == 'LOGGED' && appStore.role == 'ADMIN'">
+          <a class="nav-link" fxLayout="row" fxLayoutAlign="start center" 
+              routerLink="/cinemas" routerLinkActive="active">
+            <span>Settings</span> <i class="fas fa-cog setting_c"></i>
+          </a>
+        </li>
+      </ul>
+
+      <div class="right-side d-flex">
+        <ul class="navbar-nav">
+
+          <li *ngIf="appStore.status != 'LOGGED'" class="nav-item">
+            <a class="nav-link login" routerLink="/login" routerLinkActive="active">
+              Login
+              <i class="fas fa-sign-in-alt"></i>
+            </a>
+          </li>
+
+          <li *ngIf="appStore.status == 'LOGGED'" class="nav-item dropdown" >
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn" id="dropdownBasic1" ngbDropdownToggle>
+                <img src="../../../assets/admin.png" width="35" class="rounded-circle admin">
+                <span class="username-top">  {{appStore.username}}  </span>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem (click)="logout()" >Logout</button>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
