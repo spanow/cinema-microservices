@@ -5,7 +5,7 @@ metadata:
   labels:
     app: "cinema"
     version: "0.0.1-SNAPSHOT"
-    group: "mouad"
+    group: "masdoua"
   name: "cinema-service"
 spec:
   ports:
@@ -15,7 +15,7 @@ spec:
   selector:
     app: "cinema"
     version: "0.0.1-SNAPSHOT"
-    group: "mouad"
+    group: "masdoua"
   type: "NodePort"
 ---
 apiVersion: "apps/v1"
@@ -24,7 +24,7 @@ metadata:
   labels:
     app: "cinema"
     version: "0.0.1-SNAPSHOT"
-    group: "mouad"
+    group: "masdoua"
   name: "cinema-service"
 spec:
   replicas: 1
@@ -32,13 +32,13 @@ spec:
     matchLabels:
       app: "cinema"
       version: "0.0.1-SNAPSHOT"
-      group: "mouad"
+      group: "masdoua"
   template:
     metadata:
       labels:
         app: "cinema"
         version: "0.0.1-SNAPSHOT"
-        group: "mouad"
+        group: "masdoua"
     spec:
       containers:
       - env:
@@ -46,7 +46,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: "metadata.namespace"
-        image: "0mounach0/cinema"
+        image: "masdoua/cinema"
         imagePullPolicy: "IfNotPresent"
         name: "cinema-service"
         ports:
